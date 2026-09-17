@@ -1,11 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=UnifrakturMaguntia&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap");
 
 @import "tailwindcss";
 
 :root {
-  /* Typography test: medieval display face with a literary reading face. */
+  /* Typography test: one literary face throughout the interface. */
   --font-display: "IM Fell English", Georgia, serif;
-  --font-heading: "UnifrakturMaguntia", cursive;
+  --font-heading: "IM Fell English", Georgia, serif;
   --font-body:    "IM Fell English", Georgia, serif;
 
   /* Parchment palette */
