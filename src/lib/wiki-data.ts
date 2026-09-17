@@ -1,16 +1,42 @@
 import { createClient } from '@/lib/supabase/server'
-import { pays as staticPays, type Pays } from '@/data/pays'
-import { races as staticRaces, type Race } from '@/data/races'
-import { ryximus as staticRyximus, type Ryximus } from '@/data/ryximus'
-import { magie as staticMagie } from '@/data/magie'
+import type { Pays } from '@/data/pays'
+import type { Race } from '@/data/races'
+import type { Ryximus } from '@/data/ryximus'
 import type { Block } from '@/types/blocks'
 
-type MagieData = typeof staticMagie
+type MagieData = {
+  intro?: string
+  sections: { titre: string; contenu: string }[]
+  affinites: { element: string; description: string }[]
+  blocks?: Block[]
+}
 type AnnexeData = { label: string; titre: string; contenu: string }
 export type AnnexeWithTs = AnnexeData & { updatedAt: string | null }
 
 function isConfigured(): boolean {
   return !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
+}
+
+const LOREM_HTML = '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>'
+
+function placeholderBlock(titre = 'Contenu à venir'): Block {
+  return { id: 'placeholder', type: 'text', titre, contenu: LOREM_HTML }
+}
+
+function placeholderPays(slug = 'exemple'): Pays {
+  return { slug, nom: 'Lorem Ipsum', couleur: '#747474', blocks: [placeholderBlock()] }
+}
+
+function placeholderRace(slug = 'exemple'): Race {
+  return { slug, nom: 'Lorem Ipsum', couleur: '#747474', image: '', population: 0, esperanceVie: '—', blocks: [placeholderBlock()] }
+}
+
+function placeholderRyximus(slug = 'exemple'): Ryximus {
+  return { slug, nom: 'Lorem Ipsum', genre: 'Masculin', element: 'Lorem', couleur: '#747474', image: '', personnalite: LOREM_HTML, conditionPacte: LOREM_HTML, blocks: [placeholderBlock()] }
+}
+
+function placeholderMagie(): MagieData {
+  return { intro: 'Lorem ipsum dolor sit amet.', sections: [], affinites: [], blocks: [placeholderBlock()] }
 }
 
 function makeBlock(titre: string, contenu: unknown, type: Block['type'] = 'text'): Block | null {
@@ -72,116 +98,116 @@ function migrateRaceData(slug: string, data: unknown): Race {
 // ── Pays ──────────────────────────────────────────────────────────────────────
 
 export async function getAllPays(): Promise<Pays[]> {
-  if (!isConfigured()) return staticPays
+  if (!isConfigured()) return [placeholderPays()]
   try {
     const supabase = await createClient()
     const { data } = await supabase.from('pays').select('slug, data')
-    if (!data?.length) return staticPays
+    if (!data?.length) return [placeholderPays()]
     return data.map((row) => migratePaysData(row.slug, row.data))
   } catch {
-    return staticPays
+    return [placeholderPays()]
   }
 }
 
 export async function getPays(slug: string): Promise<{ data: Pays | null; updatedAt: string | null }> {
   if (!isConfigured()) {
-    const data = staticPays.find((p) => p.slug === slug) ?? null
+    const data = placeholderPays(slug)
     return { data, updatedAt: null }
   }
   try {
     const supabase = await createClient()
     const { data: row } = await supabase.from('pays').select('slug, data, updated_at').eq('slug', slug).single()
     if (!row) {
-      return { data: staticPays.find((p) => p.slug === slug) ?? null, updatedAt: null }
+      return { data: placeholderPays(slug), updatedAt: null }
     }
     return {
       data: migratePaysData(row.slug, row.data),
       updatedAt: row.updated_at ?? null,
     }
   } catch {
-    return { data: staticPays.find((p) => p.slug === slug) ?? null, updatedAt: null }
+    return { data: placeholderPays(slug), updatedAt: null }
   }
 }
 
 // ── Races ─────────────────────────────────────────────────────────────────────
 
 export async function getAllRaces(): Promise<Race[]> {
-  if (!isConfigured()) return staticRaces
+  if (!isConfigured()) return [placeholderRace()]
   try {
     const supabase = await createClient()
     const { data } = await supabase.from('races').select('slug, data')
-    if (!data?.length) return staticRaces
+    if (!data?.length) return [placeholderRace()]
     return data.map((row) => migrateRaceData(row.slug, row.data))
   } catch {
-    return staticRaces
+    return [placeholderRace()]
   }
 }
 
 export async function getRace(slug: string): Promise<{ data: Race | null; updatedAt: string | null }> {
   if (!isConfigured()) {
-    const data = staticRaces.find((r) => r.slug === slug) ?? null
+    const data = placeholderRace(slug)
     return { data, updatedAt: null }
   }
   try {
     const supabase = await createClient()
     const { data: row } = await supabase.from('races').select('slug, data, updated_at').eq('slug', slug).single()
     if (!row) {
-      return { data: staticRaces.find((r) => r.slug === slug) ?? null, updatedAt: null }
+      return { data: placeholderRace(slug), updatedAt: null }
     }
     return {
       data: migrateRaceData(row.slug, row.data),
       updatedAt: row.updated_at ?? null,
     }
   } catch {
-    return { data: staticRaces.find((r) => r.slug === slug) ?? null, updatedAt: null }
+    return { data: placeholderRace(slug), updatedAt: null }
   }
 }
 
 // ── Ryximus ───────────────────────────────────────────────────────────────────
 
 export async function getAllRyximus(): Promise<Ryximus[]> {
-  if (!isConfigured()) return staticRyximus
+  if (!isConfigured()) return [placeholderRyximus()]
   try {
     const supabase = await createClient()
     const { data } = await supabase.from('ryximus').select('slug, data')
-    if (!data?.length) return staticRyximus
+    if (!data?.length) return [placeholderRyximus()]
     return data.map((row) => ({ slug: row.slug, ...(row.data as Omit<Ryximus, 'slug'>) }))
   } catch {
-    return staticRyximus
+    return [placeholderRyximus()]
   }
 }
 
 export async function getRyximus(slug: string): Promise<{ data: Ryximus | null; updatedAt: string | null }> {
   if (!isConfigured()) {
-    const data = staticRyximus.find((r) => r.slug === slug) ?? null
+    const data = placeholderRyximus(slug)
     return { data, updatedAt: null }
   }
   try {
     const supabase = await createClient()
     const { data: row } = await supabase.from('ryximus').select('slug, data, updated_at').eq('slug', slug).single()
     if (!row) {
-      return { data: staticRyximus.find((r) => r.slug === slug) ?? null, updatedAt: null }
+      return { data: placeholderRyximus(slug), updatedAt: null }
     }
     return {
       data: { slug: row.slug, ...(row.data as Omit<Ryximus, 'slug'>) },
       updatedAt: row.updated_at ?? null,
     }
   } catch {
-    return { data: staticRyximus.find((r) => r.slug === slug) ?? null, updatedAt: null }
+    return { data: placeholderRyximus(slug), updatedAt: null }
   }
 }
 
 // ── Magie ─────────────────────────────────────────────────────────────────────
 
 export async function getMagie(): Promise<{ data: MagieData; updatedAt: string | null }> {
-  if (!isConfigured()) return { data: staticMagie, updatedAt: null }
+  if (!isConfigured()) return { data: placeholderMagie(), updatedAt: null }
   try {
     const supabase = await createClient()
     const { data: row } = await supabase.from('magie').select('data, updated_at').eq('id', 1).single()
-    if (!row?.data) return { data: staticMagie, updatedAt: null }
+    if (!row?.data) return { data: placeholderMagie(), updatedAt: null }
     return { data: row.data as MagieData, updatedAt: row.updated_at ?? null }
   } catch {
-    return { data: staticMagie, updatedAt: null }
+    return { data: placeholderMagie(), updatedAt: null }
   }
 }
 
@@ -191,13 +217,13 @@ const DEFAULT_LABELS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 
 export async function getAllAnnexes(): Promise<AnnexeWithTs[]> {
   if (!isConfigured()) {
-    return DEFAULT_LABELS.map((label) => ({ label, titre: `Annexe ${label}`, contenu: '', updatedAt: null }))
+    return DEFAULT_LABELS.map((label) => ({ label, titre: `Annexe ${label}`, contenu: LOREM_HTML, updatedAt: null }))
   }
   try {
     const supabase = await createClient()
     const { data } = await supabase.from('annexes').select('label, data, updated_at')
     if (!data?.length) {
-      return DEFAULT_LABELS.map((label) => ({ label, titre: `Annexe ${label}`, contenu: '', updatedAt: null }))
+      return DEFAULT_LABELS.map((label) => ({ label, titre: `Annexe ${label}`, contenu: LOREM_HTML, updatedAt: null }))
     }
     return data.map((row) => ({
       label: row.label,
@@ -205,7 +231,7 @@ export async function getAllAnnexes(): Promise<AnnexeWithTs[]> {
       updatedAt: row.updated_at ?? null,
     }))
   } catch {
-    return DEFAULT_LABELS.map((label) => ({ label, titre: `Annexe ${label}`, contenu: '', updatedAt: null }))
+    return DEFAULT_LABELS.map((label) => ({ label, titre: `Annexe ${label}`, contenu: LOREM_HTML, updatedAt: null }))
   }
 }
 
