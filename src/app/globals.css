@@ -535,3 +535,15 @@ h2, h3, h4 { font-weight: 400; letter-spacing: 0.025em; }
 }
 
 .wiki-nav-dropdown a:hover { background: rgba(142, 105, 38, 0.10); color: var(--ink); }
+/* Keep the parchment continuous on long documents. */
+html { background: var(--parchment); }
+
+body {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+  body { background-attachment: scroll; }
+}
