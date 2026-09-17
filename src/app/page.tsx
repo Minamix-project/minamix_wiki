@@ -56,19 +56,29 @@ export default async function Home() {
       <section className="mb-12">
         <div className="wiki-divider"><span>Les Pays</span></div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
-          {pays.map((p) => (
+          {pays.map((p) => {
+            const cover = p.blocks?.find((block) => block.type === 'image' && block.contenu)
+            const summary = p.blocks?.find((block) => block.type === 'text' || block.type === 'list')
+
+            return (
             <Link
               key={p.slug}
               href={`/pays/${p.slug}`}
               className="rounded-lg p-5 text-white shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-200"
               style={{ backgroundColor: p.couleur, border: '1px solid rgba(0,0,0,0.12)' }}
             >
+              {cover && (
+                <div className="mb-3 overflow-hidden border border-white/25 bg-black/10">
+                  <img src={cover.contenu} alt={cover.titre || `Illustration de ${p.nom}`} className="h-24 w-full object-cover" />
+                </div>
+              )}
               <div className="text-base font-semibold mb-2 text-center" style={{ fontFamily: 'var(--font-heading)', letterSpacing: '0.08em' }}>{p.nom}</div>
               <div className="text-xs font-normal opacity-80 leading-relaxed text-center" style={{ fontStyle: 'italic' }}>
-                {p.blocks?.[0]?.contenu?.replace(/<[^>]+>/g, '').substring(0, 75) ?? ''}…
+                {summary?.contenu?.replace(/<[^>]+>/g, '').substring(0, 75) ?? ''}…
               </div>
             </Link>
-          ))}
+            )
+          })}
         </div>
         <div className="mt-4 text-right">
           <Link href="/pays" className="text-sm hover:underline underline-offset-2" style={{ color: 'var(--ink-muted)', fontFamily: 'var(--font-heading)', fontSize: '0.78rem', letterSpacing: '0.08em' }}>
