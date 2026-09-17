@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { getAllPays, getAllRaces, getAllRyximus } from '@/lib/wiki-data'
 
 export default async function Home() {
@@ -69,7 +70,7 @@ export default async function Home() {
             >
               {cover && (
                 <div className="mb-3 overflow-hidden border border-white/25 bg-black/10">
-                  <img src={cover.contenu} alt={cover.titre || `Illustration de ${p.nom}`} className="h-24 w-full object-cover" />
+                  <Image src={cover.contenu} alt={cover.titre || `Illustration de ${p.nom}`} width={400} height={192} sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" className="h-24 w-full object-cover" />
                 </div>
               )}
               <div className="text-lg font-semibold mb-2 text-center" style={{ fontFamily: 'var(--font-heading)', letterSpacing: '0.08em' }}>{p.nom}</div>

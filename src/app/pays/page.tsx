@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { getAllPays, getCurrentUser } from '@/lib/wiki-data'
 
 export const metadata = { title: 'MINAMIX — Les Pays' }
@@ -37,7 +38,7 @@ export default async function PaysPage() {
             )}
             {cover && (
               <div className="mb-5 overflow-hidden border border-white/25 bg-black/10">
-                <img src={cover.contenu} alt={cover.titre || `Illustration de ${p.nom}`} className="h-44 w-full object-cover" />
+                <Image src={cover.contenu} alt={cover.titre || `Illustration de ${p.nom}`} width={640} height={352} sizes="(min-width: 768px) 50vw, 100vw" className="h-44 w-full object-cover" />
               </div>
             )}
             <h2 className="text-2xl font-bold mb-3 text-left" style={{ fontFamily: 'var(--font-heading)', letterSpacing: '0.08em' }}>{p.nom}</h2>

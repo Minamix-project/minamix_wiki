@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import { cache } from 'react'
 import type { Pays } from '@/data/pays'
 import type { Race } from '@/data/races'
 import type { Ryximus } from '@/data/ryximus'
@@ -39,6 +40,41 @@ function placeholderMagie(): MagieData {
   return { intro: 'Lorem ipsum dolor sit amet.', sections: [], affinites: [], blocks: [placeholderBlock()] }
 }
 
+export type NavigationItem = {
+  slug: string
+  nom: string
+  isDraft: boolean
+}
+
+async function getNavigationItems(table: 'pays' | 'races' | 'ryximus', fallback: NavigationItem[]): Promise<NavigationItem[]> {
+  if (!isConfigured()) return fallback
+
+  try {
+    const supabase = await createClient()
+    const { data } = await supabase.from(table).select('slug,nom:data->>nom,isDraft:data->>isDraft')
+    if (!data?.length) return fallback
+
+    return (data as unknown as { slug: string; nom: string | null; isDraft: string | null }[]).map((row) => ({
+      slug: row.slug,
+      nom: row.nom ?? '',
+      isDraft: row.isDraft === 'true',
+    }))
+  } catch {
+    return fallback
+  }
+}
+
+export function getPaysNavigationItems() {
+  return getNavigationItems('pays', [{ slug: 'exemple', nom: 'Lorem Ipsum', isDraft: false }])
+}
+
+export function getRacesNavigationItems() {
+  return getNavigationItems('races', [{ slug: 'exemple', nom: 'Lorem Ipsum', isDraft: false }])
+}
+
+export function getRyximusNavigationItems() {
+  return getNavigationItems('ryximus', [{ slug: 'exemple', nom: 'Lorem Ipsum', isDraft: false }])
+}
 function makeBlock(titre: string, contenu: unknown, type: Block['type'] = 'text'): Block | null {
   if (!contenu || typeof contenu !== 'string' || !contenu.trim()) return null
   return { id: titre.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''), type, titre, contenu }
@@ -237,7 +273,7 @@ export async function getAllAnnexes(): Promise<AnnexeWithTs[]> {
 
 // ── Current user ──────────────────────────────────────────────────────────────
 
-export async function getCurrentUser() {
+export const getCurrentUser = cache(async () => {
   if (!isConfigured()) return null
   try {
     const supabase = await createClient()
@@ -246,4 +282,4 @@ export async function getCurrentUser() {
   } catch {
     return null
   }
-}
+})

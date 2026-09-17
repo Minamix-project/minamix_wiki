@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import Navigation from '@/components/Navigation'
-import { getAllPays } from '@/lib/wiki-data'
-import { getAllRaces } from '@/lib/wiki-data'
-import { getAllRyximus } from '@/lib/wiki-data'
+import { getPaysNavigationItems } from '@/lib/wiki-data'
+import { getRacesNavigationItems } from '@/lib/wiki-data'
+import { getRyximusNavigationItems } from '@/lib/wiki-data'
 import { getCurrentUser } from '@/lib/wiki-data'
 
 export const metadata: Metadata = {
@@ -19,9 +19,9 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const [paysItems, racesItems, ryximusItems, user] = await Promise.all([
-    getAllPays(),
-    getAllRaces(),
-    getAllRyximus(),
+    getPaysNavigationItems(),
+    getRacesNavigationItems(),
+    getRyximusNavigationItems(),
     getCurrentUser(),
   ])
 

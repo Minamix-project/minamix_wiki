@@ -16,7 +16,7 @@ export function BlockView({ block }: { block: Block }) {
     return (
       <div id={block.id} className="wiki-card p-4">
         <figure>
-          <img src={block.contenu} alt={block.titre || ''} className="w-full rounded-lg max-h-[32rem] object-contain" />
+          <img src={block.contenu} alt={block.titre || ''} className="w-full rounded-lg max-h-[32rem] object-contain" loading="lazy" decoding="async" />
           {block.titre && (
             <figcaption className="text-sm text-center mt-2 italic" style={{ color: 'var(--ink-muted)' }}>
               {block.titre}
