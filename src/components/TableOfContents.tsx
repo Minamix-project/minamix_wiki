@@ -30,7 +30,7 @@ export function TableOfContents({ blocks, accentColor }: Props) {
         className="overflow-hidden transition-all duration-300 ease-in-out"
         style={{ width: open ? '14rem' : '0', opacity: open ? 1 : 0 }}
       >
-        <div className="bg-white shadow-xl rounded-l-xl border border-r-0 border-gray-200 py-3 w-56">
+        <div className="wiki-toc-panel py-3 w-56">
           <p className="px-4 pb-2 text-xs font-semibold uppercase tracking-wider" style={{ color: accentColor ?? 'var(--gold)' }}>
             Sommaire
           </p>
@@ -55,7 +55,7 @@ export function TableOfContents({ blocks, accentColor }: Props) {
         type="button"
         onClick={() => setOpen(o => !o)}
         title={open ? 'Fermer le sommaire' : 'Ouvrir le sommaire'}
-        className="flex flex-col gap-[5px] items-center justify-center w-8 h-12 bg-white shadow-md rounded-l-lg border border-r-0 border-gray-200 hover:bg-gray-50 transition-colors shrink-0 group"
+        className="wiki-toc-toggle flex flex-col gap-[5px] items-center justify-center w-8 h-12 transition-colors shrink-0 group"
         style={{ borderColor: open ? (accentColor ?? 'var(--gold)') : undefined }}
       >
         <span className="block w-3.5 h-px bg-gray-500 group-hover:bg-gray-700 transition-colors" />

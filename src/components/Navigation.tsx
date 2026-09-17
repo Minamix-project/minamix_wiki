@@ -64,7 +64,7 @@ export default function Navigation({ paysItems, racesItems, ryximusItems, isLogg
   return (
     <>
       <nav
-        className="fixed top-0 left-0 right-0 z-50 shadow-lg"
+        className="wiki-nav fixed top-0 left-0 right-0 z-50"
         style={{ background: 'linear-gradient(180deg, #1c1008 0%, #2c1a08 100%)', borderBottom: '1px solid rgba(176,140,42,0.25)' }}
       >
         <div className="max-w-7xl mx-auto px-4">
@@ -107,12 +107,12 @@ export default function Navigation({ paysItems, racesItems, ryximusItems, isLogg
                       {item.label}
                     </Link>
                     {hasDropdown && openMenu === item.href && (
-                      <ul className="absolute top-full left-0 bg-white shadow-xl min-w-[200px] rounded-b-lg border-t-2 border-[#b08c2a] py-1 animate-in fade-in slide-in-from-top-1 duration-150">
+                      <ul className="wiki-nav-dropdown absolute top-full left-0 min-w-[200px] py-1 animate-in fade-in slide-in-from-top-1 duration-150">
                         {item.dropdown!.map((sub) => (
                           <li key={sub.href}>
                             <Link
                               href={sub.href}
-                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-[#fdf8ee] hover:text-gray-900 transition-colors"
+                              className="block px-4 py-2 text-sm transition-colors"
                               onClick={() => setOpenMenu(null)}
                             >
                               {sub.label}
