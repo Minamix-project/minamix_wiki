@@ -3,7 +3,12 @@ import Image from 'next/image'
 import { getAllPays, getAllRaces, getAllRyximus } from '@/lib/wiki-data'
 
 export default async function Home() {
-  const [pays, races, ryximus] = await Promise.all([getAllPays(), getAllRaces(), getAllRyximus()])
+  const [allPays, allRaces, allRyximus] = await Promise.all([getAllPays(), getAllRaces(), getAllRyximus()])
+
+  // The homepage is a public showcase: never expose draft/test entries here.
+  const pays = allPays.filter((p) => !p.isDraft)
+  const ryximus = allRyximus.filter((r) => !r.isDraft)
+  const races = allRaces.filter((r) => !r.isDraft)
 
   return (
     <div>
