@@ -36,11 +36,11 @@ export default async function RacesPage() {
                 {r.population.toLocaleString('fr-FR')} hab.
               </span>
             </div>
-            <p className="text-sm leading-relaxed opacity-85" style={{ fontStyle: 'italic' }}>
+            <p className="text-base leading-relaxed opacity-85" style={{ fontStyle: 'italic' }}>
               {r.blocks?.[0]?.contenu?.replace(/<[^>]+>/g, '').substring(0, 160) ?? ''}
               {(r.blocks?.[0]?.contenu?.replace(/<[^>]+>/g, '')?.length ?? 0) > 160 ? '…' : ''}
             </p>
-            <p className="text-xs opacity-60 mt-3">Espérance de vie : {r.esperanceVie}</p>
+            <p className="text-sm opacity-60 mt-3">Espérance de vie : {r.esperanceVie}</p>
           </Link>
         ))}
       </div>

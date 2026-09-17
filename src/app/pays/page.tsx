@@ -41,7 +41,7 @@ export default async function PaysPage() {
               </div>
             )}
             <h2 className="text-2xl font-bold mb-3 text-left" style={{ fontFamily: 'var(--font-heading)', letterSpacing: '0.08em' }}>{p.nom}</h2>
-            <p className="text-sm leading-relaxed opacity-90" style={{ fontStyle: 'italic' }}>
+            <p className="text-base leading-relaxed opacity-90" style={{ fontStyle: 'italic' }}>
               {summary?.contenu?.replace(/<[^>]+>/g, '').substring(0, 180) ?? ''}
               {(summary?.contenu?.replace(/<[^>]+>/g, '')?.length ?? 0) > 180 ? '…' : ''}
             </p>

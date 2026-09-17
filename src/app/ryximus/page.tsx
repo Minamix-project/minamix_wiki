@@ -32,12 +32,12 @@ export default async function RyximusPage() {
             )}
             <div className="flex items-start justify-between gap-3 mb-3">
               <h2 className="text-2xl font-bold text-left" style={{ fontFamily: 'var(--font-heading)' }}>{r.nom}</h2>
-              <span className="shrink-0 text-xs bg-white/20 border border-white/30 rounded-full px-3 py-1 mt-1">{r.element}</span>
+              <span className="shrink-0 text-sm bg-white/20 border border-white/30 rounded-full px-3 py-1 mt-1">{r.element}</span>
             </div>
-            <p className="text-sm opacity-80 leading-relaxed">
+            <p className="text-base opacity-80 leading-relaxed">
               {r.blocks?.[0]?.contenu?.replace(/<[^>]+>/g, '').substring(0, 120) ?? r.personnalite?.replace(/<[^>]+>/g, '').substring(0, 120) ?? ''}…
             </p>
-            <p className="text-xs opacity-55 mt-3" style={{ fontFamily: 'var(--font-heading)', letterSpacing: '0.06em' }}>{r.genre}</p>
+            <p className="text-sm opacity-55 mt-3" style={{ fontFamily: 'var(--font-heading)', letterSpacing: '0.06em' }}>{r.genre}</p>
           </Link>
         ))}
       </div>

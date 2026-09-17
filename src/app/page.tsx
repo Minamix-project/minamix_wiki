@@ -72,8 +72,8 @@ export default async function Home() {
                   <img src={cover.contenu} alt={cover.titre || `Illustration de ${p.nom}`} className="h-24 w-full object-cover" />
                 </div>
               )}
-              <div className="text-base font-semibold mb-2 text-center" style={{ fontFamily: 'var(--font-heading)', letterSpacing: '0.08em' }}>{p.nom}</div>
-              <div className="text-xs font-normal opacity-80 leading-relaxed text-center" style={{ fontStyle: 'italic' }}>
+              <div className="text-lg font-semibold mb-2 text-center" style={{ fontFamily: 'var(--font-heading)', letterSpacing: '0.08em' }}>{p.nom}</div>
+              <div className="text-sm font-normal opacity-80 leading-relaxed text-center" style={{ fontStyle: 'italic' }}>
                 {summary?.contenu?.replace(/<[^>]+>/g, '').substring(0, 75) ?? ''}…
               </div>
             </Link>
@@ -98,8 +98,8 @@ export default async function Home() {
               className="rounded-lg p-4 text-center shadow hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
               style={{ backgroundColor: r.couleur, border: '1px solid rgba(0,0,0,0.10)' }}
             >
-              <div className="font-semibold text-sm" style={{ fontFamily: 'var(--font-heading)' }}>{r.nom}</div>
-              <div className="text-xs mt-1.5 opacity-70">{r.population.toLocaleString('fr-FR')} hab.</div>
+              <div className="font-semibold text-base" style={{ fontFamily: 'var(--font-heading)' }}>{r.nom}</div>
+              <div className="text-sm mt-1.5 opacity-70">{r.population.toLocaleString('fr-FR')} hab.</div>
             </Link>
           ))}
         </div>
@@ -121,8 +121,8 @@ export default async function Home() {
               className="rounded-lg p-4 text-white text-center shadow hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
               style={{ backgroundColor: r.couleur, border: '1px solid rgba(0,0,0,0.15)' }}
             >
-              <div className="font-bold text-sm mb-0.5" style={{ fontFamily: 'var(--font-heading)' }}>{r.nom}</div>
-              <div className="text-xs opacity-80">{r.element}</div>
+              <div className="font-bold text-base mb-0.5" style={{ fontFamily: 'var(--font-heading)' }}>{r.nom}</div>
+              <div className="text-sm opacity-80">{r.element}</div>
             </Link>
           ))}
         </div>
@@ -139,12 +139,12 @@ export default async function Home() {
         <Link href="/magie" className="wiki-card p-7 hover:-translate-y-0.5 transition-all duration-200 text-center block">
           <div className="text-2xl mb-2" style={{ color: 'var(--gold)' }}>✦</div>
           <h3 className="text-lg font-semibold mb-2" style={{ fontFamily: 'var(--font-heading)', textDecoration: 'none', letterSpacing: '0.08em' }}>La Magie</h3>
-          <p className="text-sm" style={{ color: 'var(--ink-muted)', fontStyle: 'italic' }}>Découvrez le système de magie et les affinités élémentaires</p>
+          <p className="text-base" style={{ color: 'var(--ink-muted)', fontStyle: 'italic' }}>Découvrez le système de magie et les affinités élémentaires</p>
         </Link>
         <Link href="/annexes" className="wiki-card p-7 hover:-translate-y-0.5 transition-all duration-200 text-center block">
           <div className="text-2xl mb-2" style={{ color: 'var(--gold)' }}>✦</div>
           <h3 className="text-lg font-semibold mb-2" style={{ fontFamily: 'var(--font-heading)', textDecoration: 'none', letterSpacing: '0.08em' }}>Annexes</h3>
-          <p className="text-sm" style={{ color: 'var(--ink-muted)', fontStyle: 'italic' }}>Informations complémentaires, chronologie et références</p>
+          <p className="text-base" style={{ color: 'var(--ink-muted)', fontStyle: 'italic' }}>Informations complémentaires, chronologie et références</p>
         </Link>
       </section>
     </div>
