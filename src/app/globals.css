@@ -1,4 +1,18 @@
-@import url("https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap");
+@font-face {
+  font-family: "IM Fell English";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/im-fell-english-regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "IM Fell English";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/im-fell-english-italic.ttf") format("truetype");
+}
 
 @import "tailwindcss";
 
