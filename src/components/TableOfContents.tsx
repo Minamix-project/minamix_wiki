@@ -17,7 +17,7 @@ export function TableOfContents({ blocks, accentColor }: Props) {
   function scrollTo(id: string) {
     const el = document.getElementById(id)
     if (!el) return
-    const offset = 80 // navbar height
+    const offset = 92 // navbar height plus breathing room
     const top = el.getBoundingClientRect().top + window.scrollY - offset
     window.scrollTo({ top, behavior: 'smooth' })
     setOpen(false)

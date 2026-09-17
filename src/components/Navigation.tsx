@@ -68,7 +68,7 @@ export default function Navigation({ paysItems, racesItems, ryximusItems, isLogg
         style={{ background: 'linear-gradient(180deg, #1c1008 0%, #2c1a08 100%)', borderBottom: '1px solid rgba(176,140,42,0.25)' }}
       >
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-[4.75rem]">
             {/* Logo */}
             <Link
               href="/"
