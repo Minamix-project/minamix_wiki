@@ -73,7 +73,7 @@ export default function Navigation({ paysItems, racesItems, ryximusItems, isLogg
             <Link
               href="/"
               className="text-white font-bold text-xl tracking-widest hover:text-[#b08c2a] transition-colors duration-200"
-              style={{ fontFamily: 'var(--font-display)' }}
+              style={{ fontFamily: 'var(--font-heading)' }}
             >
               MINAMIX
             </Link>
