@@ -4,6 +4,7 @@
 
 :root {
   /* Typography test: medieval display face with a literary reading face. */
+  --font-display: "IM Fell English", Georgia, serif;
   --font-heading: "UnifrakturMaguntia", cursive;
   --font-body:    "IM Fell English", Georgia, serif;
 
@@ -41,9 +42,18 @@ body {
 }
 
 h1, h2, h3, h4 {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   text-align: center;
   color: var(--ink);
+}
+
+h1 {
+  /* Overrides legacy inline heading tokens so page titles stay readable. */
+  font-family: var(--font-display) !important;
+}
+
+h2, h3, h4 {
+  font-family: var(--font-heading);
 }
 
 h3 { text-decoration: none; }
@@ -221,7 +231,7 @@ nav {
 }
 
 .wiki-hero-title {
-  font-family: var(--font-heading);
+  font-family: var(--font-display);
   font-size: clamp(3rem, 9vw, 6rem);
   font-weight: 700;
   letter-spacing: 0.32em;
