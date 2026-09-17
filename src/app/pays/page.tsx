@@ -20,7 +20,12 @@ export default async function PaysPage() {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {pays.map((p) => (
+        {pays.map((p) => {
+          const cover = p.blocks?.find((block) => block.type === 'image' && block.contenu)
+          const summary = p.blocks?.find((block) => block.type === 'text' || block.type === 'list')
+
+          return (
+
           <Link
             key={p.slug}
             href={`/pays/${p.slug}`}
@@ -30,13 +35,19 @@ export default async function PaysPage() {
             {user && p.isDraft && (
               <span className="absolute top-3 right-3 text-xs bg-black/30 text-white rounded-full px-2.5 py-0.5 font-medium">Brouillon</span>
             )}
+            {cover && (
+              <div className="mb-5 overflow-hidden border border-white/25 bg-black/10">
+                <img src={cover.contenu} alt={cover.titre || `Illustration de ${p.nom}`} className="h-44 w-full object-cover" />
+              </div>
+            )}
             <h2 className="text-2xl font-bold mb-3 text-left" style={{ fontFamily: 'var(--font-heading)', letterSpacing: '0.08em' }}>{p.nom}</h2>
             <p className="text-sm leading-relaxed opacity-90" style={{ fontStyle: 'italic' }}>
-              {p.blocks?.[0]?.contenu?.replace(/<[^>]+>/g, '').substring(0, 180) ?? ''}
-              {(p.blocks?.[0]?.contenu?.replace(/<[^>]+>/g, '')?.length ?? 0) > 180 ? '…' : ''}
+              {summary?.contenu?.replace(/<[^>]+>/g, '').substring(0, 180) ?? ''}
+              {(summary?.contenu?.replace(/<[^>]+>/g, '')?.length ?? 0) > 180 ? '…' : ''}
             </p>
           </Link>
-        ))}
+          )
+        })}
       </div>
     </div>
   )
